@@ -1,5 +1,3 @@
-
-
 /*
 	Dimension by HTML5 UP
 	html5up.net | @ajlkn
@@ -16,35 +14,7 @@
 		$main = $('#main'),
 		$main_articles = $main.children('article');
 
-// TRYING OT MAKE AN EXPAND BUTTON	
-	// 	Read more/ less
-	// $readMoreJS.init({
-	// 		target: '.collapse',           // Selector of the element the plugin applies to (any CSS selector, eg: '#', '.'). Default: ''
-	// 		numOfWords: 3,               // Number of words to initially display (any number). Default: 50
-	// 		toggle: true,                 // If true, user can toggle between 'read more' and 'read less'. Default: true
-	// 		moreLink: "<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FFF' class='bi bi-caret-down-fill' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); />",    // The text of 'Read more' link. Default: 'read more ...'
-	// 		lessLink: "<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FFF' class='bi bi-caret-up-fill' viewBox='0 0 16 16'%3E%3Cpath d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/%3E%3C/svg%3E"); />",         // The text of 'Read less' link. Default: 'read less'
- 	// 	});
-	
-	//  // Read more/ less ATTEMPT 2
-	//  function collapse() {
-	// 	var dots = document.getElementById("dots");
-	// 	var moreText = document.getElementById("expand");
-	// 	var btnText = document.getElementById("showmore");
-	  
-	// 	if (dots.style.display === "none") {
-	// 	  dots.style.display = "inline";
-	// 	  btnText.innerHTML = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FFF' class='bi bi-caret-down-fill' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E";
-	// 	  moreText.style.display = "none";
-	// 	} else {
-	// 	  dots.style.display = "none";
-	// 	  btnText.innerHTML = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FFF' class='bi bi-caret-up-fill' viewBox='0 0 16 16'%3E%3Cpath d='m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z'/%3E%3C/svg%3E";
-	// 	  moreText.style.display = "inline";
-	// 	}
-	//   } 
-
-
-		// Breakpoints.
+	// Breakpoints.
 		breakpoints({
 			xlarge:   [ '1281px',  '1680px' ],
 			large:    [ '981px',   '1280px' ],
@@ -328,13 +298,6 @@
 							location.hash = '';
 						});
 
-				// Previous.
-					$('<div class="previous">Previous</div>')
-						.appendTo($this)
-						.on('click', function() {
-							window.history.go(-1);
-						 });
-
 				// Prevent clicks from inside article from bubbling.
 					$this.on('click', function(event) {
 						event.stopPropagation();
@@ -434,5 +397,40 @@
 					$window.on('load', function() {
 						$main._show(location.hash.substr(1), true);
 					});
+
+// Resume buttons functionality
+//Collapsible Button for Resume
+				var coll = document.getElementsByClassName("collapsibleresume");
+				var i;
+
+				for (i = 0; i < coll.length; i++) {
+				coll[i].addEventListener("click", function() {
+					this.classList.toggle("active");
+					var content = this.nextElementSibling;
+					if (content.style.display != "none") {
+					content.style.display = "none";
+					} else {
+					content.style.display = "block";
+					}
+				});
+} 
+			//Content Toggle for Resume Button
+			function toggle_visibility(i) {
+				var content = i.target.nextElementSibling; /// Content elements (arrows)
+				if (content.getAttribute("data-state") != "closed") { /// Checks data state
+				  content.setAttribute("data-state", "closed"); // Closes content
+				  i.target.setAttribute("data-toggle", "off"); /// Changes button toggle to OFF
+				} else {
+				  content.setAttribute("data-state", "open"); /// Closes content
+				  i.target.setAttribute("data-toggle", "on"); /// Changes button toggle to OFF
+				}
+			  }
+			  
+			  var btns = document.querySelectorAll(".collapsibleresume"); /// collect all buttons
+			  
+			  for (var i = 0, len = btns.length; i < len; i++) {
+				 //// add event handler for click to all button
+				btns[i].addEventListener("click", toggle_visibility);
+			  }
 
 })(jQuery);
